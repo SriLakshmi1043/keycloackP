@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  
+  postgres:
+    image: postgres:15.1
+  
+  pgadmin:
+    image: dpage/pgadmin4
+  
+  cbsv2poc.keycloakserver:
+    image: quay.io/keycloak/keycloak:legacy
+
+volumes:
+   postgres_data:
+   

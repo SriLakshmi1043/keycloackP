@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+  postgres:
+    container_name: postgres
+    environment:
+        POSTGRES_DB: postgres
+        POSTGRES_USER: CBSV2_KEYCLOAK
+        POSTGRES_PASSWORD: CBSV2_KEYCLOAK
+    restart: always
+    ports:
+        - "5432:5432"
+    volumes:
+        - postgres_data:/var/lib/postgresql/data/
+    networks:
+        - nxt
+
+  pgadmin:
+    container_name: pgadmin
+    environment:
+        PGADMIN_DEFAULT_EMAIL : admin@nexturn.com
+        PGADMIN_DEFAULT_PASSWORD : admin1234
+    ports:
+      - "5050:80"
+    networks: 
+      - nxt
+
+  cbsv2poc.keycloakserver:
+    container_name: cbsv2poc.keycloakserver
+    environment:
+        DB_VENDOR: POSTGRES
+        DB_ADDR: postgres 
+        DB_DATABASE: postgres
+        DB_USER: CBSV2_KEYCLOAK
+        DB_SCHEMA: public
+        DB_PASSWORD: CBSV2_KEYCLOAK
+        KEYCLOAK_ADMIN: admin
+        KEYCLOAK_ADMIN_PASSWORD: password
+    command: start-dev --db-url-database postgres --db-url-host postgres --db-username CBSV2_KEYCLOAK --db-password CBSV2_KEYCLOAK
+    ports:
+        - "8060:8080"
+    depends_on:
+        - postgres
+    networks:
+        - nxt
+    
+networks:
+   nxt:
+    driver: bridge
+    external: true
