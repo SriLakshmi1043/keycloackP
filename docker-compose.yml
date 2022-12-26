@@ -3,13 +3,13 @@ version: '3.4'
 services:
   
   postgres:
-    image: postgres:15.1
+    image: postgres:latest
   
   pgadmin:
     image: dpage/pgadmin4
   
   cbsv2poc.keycloakserver:
-    image: quay.io/keycloak/keycloak:legacy
+    image: quay.io/keycloak/keycloak:latest
 
 volumes:
    postgres_data:

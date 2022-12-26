@@ -28,17 +28,17 @@ services:
   cbsv2poc.keycloakserver:
     container_name: cbsv2poc.keycloakserver
     environment:
-        DB_VENDOR: POSTGRES
-        DB_ADDR: postgres 
-        DB_DATABASE: postgres
-        DB_USER: CBSV2_KEYCLOAK
-        DB_SCHEMA: public
-        DB_PASSWORD: CBSV2_KEYCLOAK
+        KC_DB: postgres
+        KC_DB_URL: jdbc:postgresql://postgres:5432/postgres 
+        KC_DB_USERNAME: CBSV2_KEYCLOAK
+        KC_DB_SCHEMA: public
+        KC_DB_PASSWORD: CBSV2_KEYCLOAK
         KEYCLOAK_ADMIN: admin
         KEYCLOAK_ADMIN_PASSWORD: password
-    command: start-dev --db-url-database postgres --db-url-host postgres --db-username CBSV2_KEYCLOAK --db-password CBSV2_KEYCLOAK
+    command: 
+     - start-dev --auto-build
     ports:
-        - "8060:8080"
+        - "8080:8080"
     depends_on:
         - postgres
     networks:
